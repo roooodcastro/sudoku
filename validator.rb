@@ -59,4 +59,16 @@ class Validator
   def all_sequences
     @all_sequences ||= rows + columns + sub_grids
   end
+
+  def column_of(index)
+    index % 9
+  end
+
+  def row_of(index)
+    index / 9
+  end
+
+  def grid_of(index)
+    ((row_of(index) / 3) * 3) + (column_of(index) / 3)
+  end
 end
