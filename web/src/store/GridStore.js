@@ -3,6 +3,8 @@ import Cell from '@/models/Cell.js';
 export const SET_FOCUS = 'SET_FOCUS';
 export const SET_CELLS = 'SET_CELLS';
 export const SET_VALUE = 'SET_VALUE';
+export const CLEAR_VALUE = 'CLEAR_VALUE';
+export const TOGGLE_PENCIL_MARK = 'TOGGLE_PENCIL_MARK';
 
 export const VALID = '530070000600195000098000060800060003400803001700020006060000280000419005000080079';
 
@@ -44,6 +46,12 @@ export default {
     },
     [SET_VALUE](state, { value }) {
       state.cells[state.focusedCellIndex].value = parseInt(value);
+    },
+    [CLEAR_VALUE](state) {
+      state.cells[state.focusedCellIndex].clearCell();
+    },
+    [TOGGLE_PENCIL_MARK](state, { value }) {
+      state.cells[state.focusedCellIndex].togglePencilMark(value);
     },
   },
   actions: {
@@ -91,13 +99,16 @@ export default {
         });
       }
       if (event.key === 'Delete' || event.key === 'Backspace') {
-        commit({
-          type: SET_VALUE,
-          value: 0,
-        });
+        commit({ type: CLEAR_VALUE });
       }
-      if (event.key === 'a') {
-        console.log(getters.getQueryString);
+    },
+
+    togglePencilMark({ commit, getters }, event) {
+      if (event.keyCode >= 49 && event.keyCode <= 57) {
+        commit({
+          type: TOGGLE_PENCIL_MARK,
+          value: parseInt(String.fromCharCode(event.keyCode)),
+        });
       }
     },
 

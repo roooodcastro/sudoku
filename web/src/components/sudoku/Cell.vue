@@ -4,17 +4,29 @@
   :class="cssClasses"
   :tabindex="cell.index"
   @click="setFocus(cell.index)"
-  @keydown.left="moveFocus('left')"
-  @keydown.right="moveFocus('right')"
-  @keydown.up="moveFocus('up')"
-  @keydown.down="moveFocus('down')"
-  @keydown="setCellValue"
+  @keydown.exact.left="moveFocus('left')"
+  @keydown.exact.right="moveFocus('right')"
+  @keydown.exact.up="moveFocus('up')"
+  @keydown.exact.down="moveFocus('down')"
+  @keydown.exact="setCellValue"
+  @keyup.shift="togglePencilMark"
 >
   <div
     v-if="cell.value"
     class="Cell__value"
   >
     {{ cell.value }}
+  </div>
+  <div
+    v-else
+    class="Cell__pencil-marks"
+  >
+    <span
+      v-for="pencilMark in cell.orderedPencilMarks"
+      :key="pencilMark"
+    >
+      {{ pencilMark }}
+    </span>
   </div>
 </div>
 </template>
@@ -52,7 +64,6 @@ export default {
 
   mounted() {
     if (this.isFocused) {
-      console.log('focused');
       this.$el.focus();
     }
   },
@@ -62,6 +73,7 @@ export default {
       'setFocus',
       'moveFocus',
       'setCellValue',
+      'togglePencilMark',
     ]),
   },
 };
@@ -118,5 +130,22 @@ export default {
   font-size: 5vmin;
   line-height: 7.5vmin;
   text-align: center;
+}
+
+.Cell__pencil-marks {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: stretch;
+  line-height: 7.5vmin;
+  margin-left: 1px;
+  margin-top: 1px;
+  text-align: center;
+
+  span {
+    display: block;
+    font-size: 2vmin;
+    line-height: 2.5vmin;
+  }
 }
 </style>
