@@ -1,4 +1,6 @@
-require './grid.rb'
+# frozen_string_literal: true
+
+require './grid'
 
 class Solver
   attr_reader :initial_game, :current_game, :grid

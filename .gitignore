@@ -51,3 +51,16 @@ build-iPhoneSimulator/
 .rvmrc
 
 web/node_modules
+
+# Ignore all logfiles and tempfiles.
+/api/log/*
+/api/tmp/*
+/api/config/master.key
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

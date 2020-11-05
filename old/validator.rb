@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Validator
   attr_reader :game
 
@@ -53,7 +55,7 @@ class Validator
   end
 
   def sub_grids
-    @sub_grid ||= (0..8).map { |index| sub_grid(index) }
+    @sub_grids ||= (0..8).map { |index| sub_grid(index) }
   end
 
   def all_sequences

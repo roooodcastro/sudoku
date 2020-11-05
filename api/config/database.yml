@@ -1,0 +1,22 @@
+default: &default
+  adapter:  postgresql
+  encoding: unicode
+  pool:     5
+
+development:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(:development, :db_name) %>
+  username: <%= Rails.application.credentials.dig(:development, :db_user) %>
+  password: <%= Rails.application.credentials.dig(:development, :db_pass) %>
+
+test:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(:test, :db_name) %>
+  username: <%= Rails.application.credentials.dig(:test, :db_user) %>
+  password: <%= Rails.application.credentials.dig(:test, :db_pass) %>
+
+production:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(:production, :db_name) %>
+  username: <%= Rails.application.credentials.dig(:production, :db_user) %>
+  password: <%= Rails.application.credentials.dig(:production, :db_pass) %>
