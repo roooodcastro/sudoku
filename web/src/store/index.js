@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import GridStore from '@/store/GridStore';
 
 export default createStore({
   state: {
@@ -20,5 +21,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    grid: GridStore,
   },
 });
