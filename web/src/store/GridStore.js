@@ -1,4 +1,5 @@
-import Cell from '@/models/Cell.js';
+import Grid from '@/lib/models/Grid.js';
+import Cell from '@/lib/models/Cell.js';
 
 export const SET_FOCUS = 'SET_FOCUS';
 export const SET_CELLS = 'SET_CELLS';
@@ -13,14 +14,14 @@ export default {
   state: {
     focusedCellIndex: null,
     gridSize: null,
-    cells: [],
+    grid: new Grid(0, []),
   },
   getters: {
     isCellFocused: (state) => (cellIndex) => {
       return cellIndex === state.focusedCellIndex;
     },
     getFocusedCell: (state) => {
-      return state.cells[state.focusedCellIndex];
+      return state.grid.cellAt(state.focusedCellIndex);
     },
     getFocusedCellRow: (state) => {
       return Math.floor(state.focusedCellIndex / 9);
@@ -29,10 +30,7 @@ export default {
       return Math.floor(state.focusedCellIndex % 9);
     },
     getCells: (state) => {
-      return state.cells;
-    },
-    getQueryString: (state) => {
-      return state.cells.map((cell) => `${cell.value}`).join('');
+      return state.grid.cells;
     },
   },
   mutations: {
@@ -40,18 +38,17 @@ export default {
       console.log('FocusedCellIndex: ' + cellIndex);
       state.focusedCellIndex = cellIndex;
     },
-    [SET_CELLS](state, { cells, gridSize }) {
-      state.cells = cells;
-      state.gridSize = gridSize;
+    [SET_CELLS](state, { grid }) {
+      state.grid = grid;
     },
     [SET_VALUE](state, { value }) {
-      state.cells[state.focusedCellIndex].value = parseInt(value);
+      state.grid.cellAt(state.focusedCellIndex).value = parseInt(value);
     },
     [CLEAR_VALUE](state) {
-      state.cells[state.focusedCellIndex].clearCell();
+      state.grid.cellAt(state.focusedCellIndex).clearCell();
     },
     [TOGGLE_PENCIL_MARK](state, { value }) {
-      state.cells[state.focusedCellIndex].togglePencilMark(value);
+      state.grid.cellAt(state.focusedCellIndex).togglePencilMark(value);
     },
   },
   actions: {
@@ -101,6 +98,9 @@ export default {
       if (event.key === 'Delete' || event.key === 'Backspace') {
         commit({ type: CLEAR_VALUE });
       }
+      if (event.key === 'a') {
+        console.log(this.grid.blocks);
+      }
     },
 
     togglePencilMark({ commit, getters }, event) {
@@ -112,19 +112,18 @@ export default {
       }
     },
 
-    loadInitialGrid({ commit }, { gridSize, grid }) {
-      const gridValues = grid.split('');
-      const cellCount = gridSize * gridSize;
-      const cells = Array.from({ length: cellCount }, (_, index) => {
-        const value = gridValues[index] ?? Math.floor(Math.random() * (gridSize + 1));
-        const intValue = parseInt(value);
-        return new Cell(index, intValue, gridSize, intValue > 0);
-      });
+    loadInitialGrid({ commit }, { gridSize, gridString }) {
+      let grid = null;
+
+      if (gridString) {
+        grid = Grid.fromGridString(gridString);
+      } else {
+        grid = Grid.generateRandomGrid(gridSize);
+      }
 
       commit({
         type: SET_CELLS,
-        cells,
-        gridSize,
+        grid,
       });
     },
   },

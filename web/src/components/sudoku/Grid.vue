@@ -42,10 +42,10 @@ export default {
   },
 
   mounted() {
-    const grid = this.$route.query.grid ?? '';
+    const gridString = this.$route.query.grid ?? '';
     this.loadInitialGrid({
       gridSize: 9,
-      grid,
+      gridString,
     });
   },
 
