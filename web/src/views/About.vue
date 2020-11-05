@@ -1,5 +1,7 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="About">
+    <h1>Rubydoku</h1>
+
+    <p>TODO</p>
   </div>
 </template>
