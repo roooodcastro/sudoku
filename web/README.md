@@ -1,4 +1,4 @@
-# web
+# Rubydoku - Web
 
 ## Project setup
 ```
