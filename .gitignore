@@ -53,7 +53,9 @@ build-iPhoneSimulator/
 web/node_modules
 
 # Ignore all logfiles and tempfiles.
-/log/*
+/api/log/*
+/api/tmp/*
+/api/config/master.key
 
 # Ignore uploaded files in development.
 /storage/*

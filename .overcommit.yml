@@ -20,13 +20,13 @@ verify_signatures: false
 PreCommit:
   ALL:
     exclude: &default_excludes
-      - '.eslintrc.js'
+      - '.overcommit.yml'
       - 'web/node_modules/**/*'
 
   EsLint:
     enabled: true
-    required_executable: 'web/node_modules/.bin/yarn'
-    command: ['yarn --cwd web', 'eslint']
+    required_executable: 'web/node_modules/.bin/eslint'
+    command: ['web/node_modules/.bin/yarn', '--cwd', 'web', 'eslint']
     include:
       - '**/*.js'
       - '**/*.vue'

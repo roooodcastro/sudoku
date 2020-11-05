@@ -4,19 +4,27 @@ module.exports = {
     node: true
   },
   extends: [
+    'eslint:recommended',
     'plugin:vue/vue3-essential',
-    '@vue/standard'
+    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/vue3-recommended',
+    '@vue/standard',
   ],
   parserOptions: {
     parser: 'babel-eslint'
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': 'warn',
+    'no-debugger': 'warn',
+    'no-tabs': 'error',
+    'eqeqeq': 'error',
     'semi': ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': ['error', 'never'],
     'no-unused-vars': ['warn'],
+    'quotes': ['error', 'single', {
+      'allowTemplateLiterals': true
+    }],
   },
   overrides: [
     {
