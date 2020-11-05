@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require './printer.rb'
-require './validator.rb'
-require './guess_solver.rb'
-require './logic_solver.rb'
+require './printer'
+require './validator'
+require './guess_solver'
+require './logic_solver'
 
 def solve_with_guess(game)
   solved_game = solve(game)

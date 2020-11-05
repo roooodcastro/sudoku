@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require './validator.rb'
-require './printer.rb'
+require './validator'
+require './printer'
 
 @guesses = (1..9).to_a
 

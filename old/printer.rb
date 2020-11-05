@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Printer
   def self.print_game(game)
     abort 'Invalid game!' unless game.strip.size == 81
@@ -13,9 +15,9 @@ class Printer
 
   def self.format_row(row)
     row.map { |n| n.to_i.zero? ? ' ' : n }
-      .insert(3, '|')
-      .insert(7, '|')
-      .join(' ')
+       .insert(3, '|')
+       .insert(7, '|')
+       .join(' ')
   end
 
   def self.row_indices

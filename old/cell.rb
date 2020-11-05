@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cell
   attr_reader :number, :index, :row, :column, :sub_grid, :hints
 

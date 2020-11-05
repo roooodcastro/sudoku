@@ -1,4 +1,6 @@
-require './cell.rb'
+# frozen_string_literal: true
+
+require './cell'
 
 class Grid
   attr_reader :cells
