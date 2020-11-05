@@ -1,4 +1,5 @@
-import Cell from '@/lib/models/Cell';
+import Cell from '@/lib/models/Cell.js';
+import SolutionValidator from '@/lib/SolutionValidator.js';
 
 export default class Grid {
   constructor(gridSize, cells) {
@@ -64,8 +65,20 @@ export default class Grid {
     });
   }
 
+  get hasEmptyCells() {
+    return this.cells.some((cell) => cell.value === 0);
+  }
+
   cellAt(index) {
     return this.cells[index];
+  }
+
+  isValid() {
+    if (this.hasEmptyCells) {
+      return false;
+    } else {
+      return new SolutionValidator(this).isSolutionValid();
+    }
   }
 
   toQueryString() {

@@ -32,6 +32,9 @@ export default {
     getCells: (state) => {
       return state.grid.cells;
     },
+    getGrid: (state) => {
+      return state.grid;
+    },
   },
   mutations: {
     [SET_FOCUS](state, { cellIndex }) {
