@@ -4,13 +4,13 @@ module Sudoku
   class Solver
     class SolverNotFoundError < StandardError; end
 
-    attr_reader :puzzle, :grid
+    attr_reader :puzzle, :grid, :actions
 
     LOGIC     = :logic
     ALGORITHM = :algorithm
 
     SOLVERS = {
-      LOGIC => 'Sudoku::LogicSolver::Solver',
+      LOGIC     => 'Sudoku::LogicSolver::Solver',
       ALGORITHM => 'Sudoku::AlgorithmSolver::Solver'
     }.freeze
 
@@ -22,8 +22,9 @@ module Sudoku
     end
 
     def initialize(puzzle)
-      @puzzle = puzzle
-      @grid   = Sudoku::Grid.new(puzzle.definition)
+      @puzzle  = puzzle
+      @grid    = Sudoku::Grid.new(puzzle.definition)
+      @actions = []
     end
 
     def solve

@@ -4,7 +4,7 @@ module Sudoku
   class Grid
     include Sudoku::Grid::Printer
 
-    attr_reader :cells, :rows, :cols, :blocks, :grid_size, :sub_grid_size
+    attr_reader :cells, :rows, :cols, :blocks, :units, :grid_size, :sub_grid_size
 
     def initialize(grid_string)
       grid_values = grid_string.split('')
@@ -14,13 +14,23 @@ module Sudoku
       build_grid(grid_values)
     end
 
+    def solved_cells_count
+      cells.count(&:solved?)
+    end
+
+    def solved?
+      solved_cells_count == cells.size
+    end
+
     private
 
     def build_grid(grid_values)
       @rows   = build_units
       @cols   = build_units
       @blocks = build_units
+      @units  = rows.values + cols.values + blocks.values
       @cells  = build_cells(grid_values)
+      cells.each(&:find_peers)
     end
 
     def build_units
@@ -33,10 +43,22 @@ module Sudoku
         col_index   = index % grid_size
         block_index = block_index(index)
 
-        cell = Cell.new(value: value, row: rows[row_index], col: cols[col_index], block: blocks[block_index])
+        cell = build_cell(value, row_index, col_index, block_index)
+
         assign_cell_to_units(cell, row_index, col_index, block_index)
+
         cell
       end
+    end
+
+    def build_cell(value, row_index, col_index, block_index)
+      Cell.new(
+        value: value,
+        row:   rows[row_index],
+        col:   cols[col_index],
+        block: blocks[block_index],
+        grid:  self
+      )
     end
 
     def block_index(grid_index)

@@ -8,5 +8,9 @@ module Sudoku
       @cells = []
       @index = index
     end
+
+    def has?(value)
+      cells.map(&:value).include?(value)
+    end
   end
 end
