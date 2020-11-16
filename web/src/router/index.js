@@ -19,7 +19,7 @@ const routes = [
     },
   },
   {
-    path: '/play',
+    path: '/play/:puzzleId',
     name: 'Play',
     component: () => import(/* webpackChunkName: "play" */ '../views/Play.vue'),
     meta: {

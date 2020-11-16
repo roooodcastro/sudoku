@@ -31,13 +31,6 @@ PreCommit:
       - '**/*.js'
       - '**/*.vue'
 
-  StyleLint:
-    enabled: true
-    required_executable: 'yarn'
-    command: ['bin/yarn', 'stylelint']
-    include:
-      - '**/*.vue'
-
   RuboCop:
     enabled: true
     exclude:

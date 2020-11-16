@@ -22,7 +22,7 @@
 import Grid from '@/components/sudoku/Grid.vue';
 import { createNamespacedHelpers } from 'vuex';
 
-const { mapGetters } = createNamespacedHelpers('grid');
+const { mapGetters, mapActions } = createNamespacedHelpers('grid');
 
 export default {
   components: {
@@ -33,7 +33,15 @@ export default {
       grid: 'getGrid',
     }),
   },
+  mounted() {
+    const puzzleId = this.$route.params.puzzleId;
+    this.loadGridFromAPI({ puzzleId });
+  },
   methods: {
+    ...mapActions([
+      'loadGridFromAPI',
+    ]),
+
     validateSolution() {
       if (this.grid.hasEmptyCells) {
         alert('Sudoku is not yet completed. Cannot verify.');
