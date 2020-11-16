@@ -1,0 +1,11 @@
+Description:
+    Generates a JavaScript file containing the routes from config/routes.rb. This file is used by the Vue.JS
+    front-end application.
+
+    The file is created at /web/src/routes.js
+
+Example:
+    rails generate js_routes
+
+    This will create:
+        /web/src/routes.js
