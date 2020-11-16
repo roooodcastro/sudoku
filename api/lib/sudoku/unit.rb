@@ -12,5 +12,9 @@ module Sudoku
     def has?(value)
       cells.map(&:value).include?(value)
     end
+
+    def unsolved_cells
+      cells.reject(&:solved?)
+    end
   end
 end

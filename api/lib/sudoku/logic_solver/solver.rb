@@ -6,6 +6,7 @@ module Sudoku
       def solve
         until grid.solved?
           new_actions = apply_strategies
+          puts "Completed step, actions: #{new_actions.size}"
 
           # If the last step didn't solve any cells, then the solver can't handle the Sudoku puzzle given :(
           break if new_actions.blank?

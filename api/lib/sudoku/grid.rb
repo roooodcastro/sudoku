@@ -4,12 +4,13 @@ module Sudoku
   class Grid
     include Sudoku::Grid::Printer
 
-    attr_reader :cells, :rows, :cols, :blocks, :units, :grid_size, :sub_grid_size
+    attr_reader :cells, :rows, :cols, :blocks, :units, :grid_size, :sub_grid_size, :numbers
 
     def initialize(grid_string)
       grid_values = grid_string.split('')
       @grid_size = Math.sqrt(grid_values.size).to_i
       @sub_grid_size = Math.sqrt(grid_size).to_i
+      @numbers = grid_size.times.map { |n| n + 1 }
 
       build_grid(grid_values)
     end
@@ -20,6 +21,10 @@ module Sudoku
 
     def solved?
       solved_cells_count == cells.size
+    end
+
+    def current_definition
+      cells.map { |cell| cell.value.to_i }.join
     end
 
     private

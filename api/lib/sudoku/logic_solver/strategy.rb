@@ -8,8 +8,12 @@ module Sudoku
       attr_reader :grid
 
       STRATEGY_TYPES = {
-        visual_scanning: 'Sudoku::LogicSolver::Strategies::VisualScanning',
-        naked_single:    'Sudoku::LogicSolver::Strategies::NakedSingle'
+        visual_scanning:           'Sudoku::LogicSolver::Strategies::VisualScanning',
+        naked_single:              'Sudoku::LogicSolver::Strategies::NakedSingle',
+        hidden_single:             'Sudoku::LogicSolver::Strategies::HiddenSingle',
+        naked_pair:                'Sudoku::LogicSolver::Strategies::NakedPair',
+        hidden_pair:               'Sudoku::LogicSolver::Strategies::HiddenPair',
+        locked_pointing_candidate: 'Sudoku::LogicSolver::Strategies::LockedPointingCandidate'
       }.freeze
 
       def self.all
