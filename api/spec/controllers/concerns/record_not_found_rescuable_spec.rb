@@ -4,7 +4,7 @@ RSpec.describe RecordNotFoundRescuable, type: :controller, aggregate_failures: t
   subject(:show_request) { get :show, params: { id: record_id }, format: :json }
 
   controller ApplicationController do
-    include described_class
+    include RecordNotFoundRescuable
 
     def show
       Puzzle.find(params[:id])

@@ -11,9 +11,9 @@ development:
 
 test:
   <<: *default
-  database: <%= Rails.application.credentials.dig(:test, :db_name) %>
-  username: <%= Rails.application.credentials.dig(:test, :db_user) %>
-  password: <%= Rails.application.credentials.dig(:test, :db_pass) %>
+  database: rubydoku_test
+  username: rubydoku
+  password: ""
 
 production:
   <<: *default
