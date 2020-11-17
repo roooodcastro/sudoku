@@ -19,6 +19,7 @@ module Sudoku
 
     def solve(new_value)
       return false if frozen
+      return false if valid_numbers.exclude?(new_value)
 
       changed = new_value != value
       @value = new_value
@@ -71,6 +72,10 @@ module Sudoku
 
     def initial_candidates
       Set.new(1..grid_size)
+    end
+
+    def valid_numbers
+      @valid_numbers ||= initial_candidates.to_a + [nil]
     end
   end
 end

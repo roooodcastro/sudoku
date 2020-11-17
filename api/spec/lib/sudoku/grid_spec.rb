@@ -133,4 +133,36 @@ RSpec.describe Sudoku::Grid, type: :model do
       end
     end
   end
+
+  describe '#solved_cells_count' do
+    subject { grid.solved_cells_count }
+
+    let(:puzzle_definition) { '0102030405060708' }
+
+    it { is_expected.to eq 8 }
+  end
+
+  describe '#solved?' do
+    subject { grid.solved? }
+
+    context 'when all cells are solved' do
+      let(:puzzle_definition) { '1234' }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when not all cells are solved' do
+      let(:puzzle_definition) { '0034' }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe '#current_definition' do
+    subject { grid.current_definition }
+
+    let(:puzzle_definition) { '0102030405060708' }
+
+    it { is_expected.to eq puzzle_definition }
+  end
 end

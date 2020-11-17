@@ -9,7 +9,7 @@ module Sudoku
       @index = index
     end
 
-    def has?(value)
+    def value_solved?(value)
       cells.map(&:value).include?(value)
     end
 

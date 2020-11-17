@@ -65,6 +65,12 @@ Rails/RenderInline:
 RSpec/DescribedClass:
   SkipBlocks: true
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
 RSpec/ExpectChange:
   EnforcedStyle: block
 

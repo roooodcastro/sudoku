@@ -35,7 +35,7 @@ module Sudoku
 
         def try_solving_solvable_cells(value, elimination_action)
           grid.units.each do |unit|
-            next if unit.has?(value)
+            next if unit.value_solved?(value)
 
             solvable_cells = unit.cells.select { |cell| cell.can_be?(value) }
             next if solvable_cells.size != 1
