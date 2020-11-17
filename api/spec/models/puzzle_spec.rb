@@ -5,7 +5,7 @@ RSpec.describe Puzzle, type: :model do
 
   let(:puzzle) { described_class.new(attributes) }
 
-  let(:attributes) {}
+  let(:attributes) { {} }
 
   describe 'Validations' do
     it { is_expected.not_to validate_presence_of(:name) }

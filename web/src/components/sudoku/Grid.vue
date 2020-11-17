@@ -20,7 +20,7 @@ import Cell from '@/components/sudoku/Cell.vue';
 import { ref, onBeforeUpdate } from 'vue';
 import { createNamespacedHelpers } from 'vuex';
 
-const { mapGetters, mapActions } = createNamespacedHelpers('grid');
+const { mapGetters } = createNamespacedHelpers('grid');
 
 export default {
   name: 'Grid',
@@ -41,14 +41,6 @@ export default {
     };
   },
 
-  mounted() {
-    const gridString = this.$route.query.grid ?? '';
-    this.loadInitialGrid({
-      gridSize: 9,
-      gridString,
-    });
-  },
-
   computed: {
     ...mapGetters({
       focusedCell: 'getFocusedCell',
@@ -57,10 +49,6 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'loadInitialGrid',
-    ]),
-
     setFocus() {
       this.cellsDivs[this.focusedCell.index].$el.focus();
     },

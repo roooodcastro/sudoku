@@ -11,8 +11,9 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-
+gem 'js-routes', '>= 1.4.10', git: 'https://github.com/railsware/js-routes'
 gem 'oj'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'awesome_print', require: false

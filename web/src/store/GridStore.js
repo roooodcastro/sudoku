@@ -1,13 +1,11 @@
 import Grid from '@/lib/models/Grid.js';
-import Cell from '@/lib/models/Cell.js';
+import PuzzleAPI from '@/api/PuzzleAPI.js';
 
 export const SET_FOCUS = 'SET_FOCUS';
-export const SET_CELLS = 'SET_CELLS';
+export const SET_PUZZLE = 'SET_PUZZLE';
 export const SET_VALUE = 'SET_VALUE';
 export const CLEAR_VALUE = 'CLEAR_VALUE';
 export const TOGGLE_PENCIL_MARK = 'TOGGLE_PENCIL_MARK';
-
-export const VALID = '530070000600195000098000060800060003400803001700020006060000280000419005000080079';
 
 export default {
   namespaced: true,
@@ -15,6 +13,8 @@ export default {
     focusedCellIndex: null,
     gridSize: null,
     grid: new Grid(0, []),
+    name: '',
+    author: '',
   },
   getters: {
     isCellFocused: (state) => (cellIndex) => {
@@ -38,11 +38,12 @@ export default {
   },
   mutations: {
     [SET_FOCUS](state, { cellIndex }) {
-      console.log('FocusedCellIndex: ' + cellIndex);
       state.focusedCellIndex = cellIndex;
     },
-    [SET_CELLS](state, { grid }) {
-      state.grid = grid;
+    [SET_PUZZLE](state, { puzzle }) {
+      state.grid = Grid.fromGridString(puzzle.definition);
+      state.name = puzzle.name;
+      state.author = puzzle.author;
     },
     [SET_VALUE](state, { value }) {
       state.grid.cellAt(state.focusedCellIndex).value = parseInt(value);
@@ -101,9 +102,6 @@ export default {
       if (event.key === 'Delete' || event.key === 'Backspace') {
         commit({ type: CLEAR_VALUE });
       }
-      if (event.key === 'a') {
-        console.log(this.grid.blocks);
-      }
     },
 
     togglePencilMark({ commit, getters }, event) {
@@ -115,19 +113,15 @@ export default {
       }
     },
 
-    loadInitialGrid({ commit }, { gridSize, gridString }) {
-      let grid = null;
-
-      if (gridString) {
-        grid = Grid.fromGridString(gridString);
-      } else {
-        grid = Grid.generateRandomGrid(gridSize);
-      }
-
-      commit({
-        type: SET_CELLS,
-        grid,
-      });
+    loadGridFromAPI({ commit }, { puzzleId }) {
+      PuzzleAPI.getPuzzle(puzzleId)
+        .then((puzzle) => {
+          commit({
+            type: SET_PUZZLE,
+            puzzle,
+          });
+        })
+        .catch((error) => alert(error));
     },
   },
 };

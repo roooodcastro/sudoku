@@ -9,11 +9,12 @@ AllCops:
     - 'web/node_modules/**/*'
     - '--git-common-dir/**/*'
   NewCops: enable
-  RSpec:
-    Patterns:
-      - _spec.rb
-      - '(?:^|/)spec/'
   TargetRubyVersion: 2.7
+
+RSpec:
+  Include:
+    - '**/*_spec.rb'
+    - '**/spec/**/*'
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
