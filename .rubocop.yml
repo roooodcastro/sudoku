@@ -58,6 +58,9 @@ Rails/Output:
 Rails/RenderInline:
   Enabled: false
 
+RSpec/DescribedClass:
+  SkipBlocks: true
+
 RSpec/ExpectChange:
   EnforcedStyle: block
 
