@@ -36,7 +36,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
         {
           name:       'MyPuzzle',
           author:     'Myself',
-          definition: '123456789'
+          definition: '0003000230004000'
         }
       end
 
@@ -46,7 +46,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
 
         expect(json_response['puzzle']['name']).to eq 'MyPuzzle'
         expect(json_response['puzzle']['author']).to eq 'Myself'
-        expect(json_response['puzzle']['definition']).to eq '123456789'
+        expect(json_response['puzzle']['definition']).to eq '0003000230004000'
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
 
         expect(json_response['puzzle']['name']).to eq 'MyPuzzle'
         expect(json_response['puzzle']['author']).to eq 'Myself'
-        expect(json_response['errors']).to eq ['Definition can\'t be blank']
+        expect(json_response['errors']).to include 'Puzzle is empty!'
       end
     end
   end
@@ -103,7 +103,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
 
         expect(json_response['puzzle']['name']).to eq 'MyPuzzle'
         expect(json_response['puzzle']['definition']).to eq ''
-        expect(json_response['errors']).to eq ['Definition can\'t be blank']
+        expect(json_response['errors']).to include 'Puzzle is empty!'
       end
     end
   end

@@ -11,10 +11,8 @@ module Sudoku
       # sub_grid_size rows (3 rows for classic Sudoku), a separator row is printed to separate the blocks.
       # The "join(print_separator_row)" method is used to avoid a trailing separator row at the end.
       def print
-        rows.values.in_groups_of(sub_grid_size).each_with_index.map do |row_group, row_group_index|
-          printed_rows = row_group.each_with_index.map do |row, row_index|
-            print_row(row, (row_group_index * sub_grid_size) + row_index)
-          end
+        rows.values.in_groups_of(sub_grid_size).each.map do |row_group|
+          printed_rows = row_group.each.map(&method(:print_row))
           [print_separator_row, printed_rows].join
         end.unshift(print_header_row)
       end
@@ -24,12 +22,11 @@ module Sudoku
       # Returns a formatted row, with blocks separated by VERTICAL_SEPARATORS, and with a newline character at the end.
       # In classic Sudoku, a block is three cells wide and tall, so between each three cells there's a separator.
       # The "join(' ')" method is used to avoid a trailing separator at the end.
-      def print_row(row, index)
-        row_name = Sudoku::Cell::ROW_NAMES[index]
+      def print_row(row)
         printed_row = row.cells.in_groups_of(sub_grid_size).map do |cell_group|
           cell_group.map { |cell| cell.value || '.' }.join(' ')
         end
-        "#{row_name}#{VERTICAL_SEPARATOR}#{printed_row.join(VERTICAL_SEPARATOR)}\n"
+        "#{row.name}#{VERTICAL_SEPARATOR}#{printed_row.join(VERTICAL_SEPARATOR)}\n"
       end
 
       def print_header_row

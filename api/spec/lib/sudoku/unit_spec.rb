@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe Sudoku::Unit, type: :model do
-  let(:unit) { described_class.new(index) }
+  let(:unit) { described_class.new(index, type) }
 
   let(:index) { 0 }
+  let(:type) { :row }
 
   describe 'Ivar assignment' do
     it { expect(unit.instance_variable_get(:@cells)).to eq [] }
     it { expect(unit.instance_variable_get(:@index)).to eq index }
+    it { expect(unit.instance_variable_get(:@type)).to eq type }
   end
 
   describe '#value_solved?' do

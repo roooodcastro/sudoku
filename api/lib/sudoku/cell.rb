@@ -4,8 +4,6 @@ module Sudoku
   class Cell
     attr_reader :value, :frozen, :row, :col, :block, :peers, :grid_size, :candidates
 
-    ROW_NAMES = ('A'..'I').to_a.freeze
-
     def initialize(value:, row:, col:, block:, grid:)
       @value      = value.to_i.zero? ? nil : value.to_i
       @frozen     = @value.present?
@@ -57,9 +55,7 @@ module Sudoku
     end
 
     def position_name
-      row_name = ROW_NAMES[row.index]
-      col_name = col.index + 1
-      "#{row_name}#{col_name}"
+      "#{row.name}#{col.name}"
     end
 
     def to_s
