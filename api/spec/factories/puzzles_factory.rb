@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :puzzle do
-    definition { Array.new(81).map { (1..9).to_a.sample }.join }
+    definition { '0003000230004000' }
   end
 end

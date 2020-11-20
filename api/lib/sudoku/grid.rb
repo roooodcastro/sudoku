@@ -3,11 +3,12 @@
 module Sudoku
   class Grid
     include Sudoku::Grid::Printer
+    include Sudoku::Grid::Validator
 
     attr_reader :cells, :rows, :cols, :blocks, :units, :grid_size, :sub_grid_size, :numbers
 
     def initialize(grid_string)
-      grid_values = grid_string.split('')
+      grid_values = grid_string.to_s.split('')
       @grid_size = Math.sqrt(grid_values.size).to_i
       @sub_grid_size = Math.sqrt(grid_size).to_i
       @numbers = grid_size.times.map { |n| n + 1 }
@@ -30,16 +31,16 @@ module Sudoku
     private
 
     def build_grid(grid_values)
-      @rows   = build_units
-      @cols   = build_units
-      @blocks = build_units
+      @rows   = build_units(:row)
+      @cols   = build_units(:col)
+      @blocks = build_units(:block)
       @units  = rows.values + cols.values + blocks.values
       @cells  = build_cells(grid_values)
       cells.each(&:find_peers)
     end
 
-    def build_units
-      grid_size.times.each_with_object({}) { |index, result| result[index] = Sudoku::Unit.new(index) }
+    def build_units(type)
+      grid_size.times.each_with_object({}) { |index, result| result[index] = Sudoku::Unit.new(index, type) }
     end
 
     def build_cells(values)

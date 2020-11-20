@@ -11,6 +11,23 @@ RSpec.describe Puzzle, type: :model do
     it { is_expected.not_to validate_presence_of(:name) }
     it { is_expected.not_to validate_presence_of(:author) }
     it { is_expected.not_to validate_presence_of(:slug) }
-    it { is_expected.to validate_presence_of(:definition) }
+
+    context 'when definition is for a valid puzzle' do
+      let(:attributes) { { definition: '0003000230004000' } }
+
+      before { puzzle.valid? }
+
+      it { expect(puzzle).to be_valid }
+      it { expect(puzzle.errors).to be_blank }
+    end
+
+    context 'when definition is for an invalid puzzle' do
+      let(:attributes) { { definition: nil } }
+
+      before { puzzle.valid? }
+
+      it { expect(puzzle).not_to be_valid }
+      it { expect(puzzle.errors).to be_present }
+    end
   end
 end

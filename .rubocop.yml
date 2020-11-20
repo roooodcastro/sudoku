@@ -74,5 +74,8 @@ RSpec/NestedGroups:
 RSpec/ExpectChange:
   EnforcedStyle: block
 
+Style/AsciiComments:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false

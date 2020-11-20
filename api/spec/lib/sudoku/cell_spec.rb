@@ -4,9 +4,9 @@ RSpec.describe Sudoku::Cell, type: :model do
   let(:cell) { described_class.new(value: initial_value, row: row, col: col, block: block, grid: grid) }
 
   let(:initial_value) { 9 }
-  let(:row) { instance_double(Sudoku::Unit, index: 1) }
-  let(:col) { instance_double(Sudoku::Unit, index: 2) }
-  let(:block) { instance_double(Sudoku::Unit, index: 3) }
+  let(:row) { instance_double(Sudoku::Unit, name: 'B') }
+  let(:col) { instance_double(Sudoku::Unit, name: '3') }
+  let(:block) { instance_double(Sudoku::Unit, name: '4') }
   let(:grid) { instance_double(Sudoku::Grid, grid_size: 9) }
 
   describe 'Ivar assignment' do

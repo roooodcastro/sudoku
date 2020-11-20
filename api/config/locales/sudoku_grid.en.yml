@@ -1,0 +1,9 @@
+en:
+  sudoku_grid:
+    validator:
+      invalid_length: "Puzzle has an invalid length of %{length}. Valid lengths are: %{valid_lengths}"
+      empty_puzzle: "Puzzle is empty!"
+      invalid_digits: "Puzzle has invalid digits: %{digits}. Valid digits are: %{valid_digits}"
+      duplicate_in_row: "Digit %{digit} repeats in row %{row}. It must be unique in that row"
+      duplicate_in_col: "Digit %{digit} repeats in column %{col}. It must be unique in that column"
+      duplicate_in_block: "Digit %{digit} repeats in block %{block}. It must be unique in that block"
