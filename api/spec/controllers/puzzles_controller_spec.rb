@@ -34,8 +34,8 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
     context 'with valid params' do
       let(:puzzle_params) do
         {
-          name: 'MyPuzzle',
-          author: 'Myself',
+          name:       'MyPuzzle',
+          author:     'Myself',
           definition: '123456789'
         }
       end
@@ -53,7 +53,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
     context 'with invalid params' do
       let(:puzzle_params) do
         {
-          name: 'MyPuzzle',
+          name:   'MyPuzzle',
           author: 'Myself'
         }
       end
@@ -92,7 +92,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
     context 'with invalid params' do
       let(:puzzle_params) do
         {
-          name: 'MyPuzzle',
+          name:       'MyPuzzle',
           definition: ''
         }
       end
