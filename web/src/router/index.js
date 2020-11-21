@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-import View from '../views/View.vue';
+import PuzzlesIndex from '../views/puzzles/Index.vue';
 
 const routes = [
   {
@@ -29,11 +29,11 @@ const routes = [
     },
   },
   {
-    path: '/view/:puzzleId',
-    name: 'View',
-    component: View,
+    path: '/puzzles/',
+    name: 'Sudoku Puzzles',
+    component: PuzzlesIndex,
     meta: {
-      title: 'View Sudoku - Rubydoku',
+      title: 'Sudoku Puzzles - Rubydoku',
     },
   },
 ];

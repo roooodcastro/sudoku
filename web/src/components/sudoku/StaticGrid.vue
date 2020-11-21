@@ -5,7 +5,7 @@
       :class="gridCssClass"
     >
       <StaticCell
-        v-for="(cell) in cells"
+        v-for="(cell) in grid.cells"
         :key="cell.index"
         :cell-value="cell.value"
       />
@@ -30,21 +30,20 @@
 <script>
 import StaticCell from '@/components/sudoku/StaticCell.vue';
 
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapGetters } = createNamespacedHelpers('grid');
-
 export default {
   name: 'StaticGrid',
   components: {
     StaticCell,
   },
 
+  props: {
+    grid: {
+      type: Object,
+      required: true,
+    },
+  },
+
   computed: {
-    ...mapGetters({
-      cells: 'getCells',
-      grid: 'getGrid',
-    }),
     gridCssClass() {
       return {
         'StaticGrid--two-by-two': this.grid.gridSize === 4,

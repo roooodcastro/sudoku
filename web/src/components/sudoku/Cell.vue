@@ -1,34 +1,34 @@
 <template>
-<div
-  class="Cell"
-  :class="cssClasses"
-  :tabindex="cell.index"
-  @click="setFocus(cell.index)"
-  @keydown.exact.left="moveFocus('left')"
-  @keydown.exact.right="moveFocus('right')"
-  @keydown.exact.up="moveFocus('up')"
-  @keydown.exact.down="moveFocus('down')"
-  @keydown.exact="setCellValue"
-  @keyup.shift="togglePencilMark"
->
   <div
-    v-if="cell.value"
-    class="Cell__value"
+    class="Cell"
+    :class="cssClasses"
+    :tabindex="cell.index"
+    @click="setFocus(cell.index)"
+    @keydown.exact.left="moveFocus('left')"
+    @keydown.exact.right="moveFocus('right')"
+    @keydown.exact.up="moveFocus('up')"
+    @keydown.exact.down="moveFocus('down')"
+    @keydown.exact="setCellValue"
+    @keyup.shift="togglePencilMark"
   >
-    {{ cell.value }}
-  </div>
-  <div
-    v-else
-    class="Cell__pencil-marks"
-  >
-    <span
-      v-for="pencilMark in cell.orderedPencilMarks"
-      :key="pencilMark"
+    <div
+      v-if="cell.value"
+      class="Cell__value"
     >
-      {{ pencilMark }}
-    </span>
+      {{ cell.value }}
+    </div>
+    <div
+      v-else
+      class="Cell__pencil-marks"
+    >
+      <span
+        v-for="pencilMark in cell.orderedPencilMarks"
+        :key="pencilMark"
+      >
+        {{ pencilMark }}
+      </span>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -81,6 +81,7 @@ export default {
 
 <style lang="scss" scoped>
 .Cell {
+  background-color: white;
   border: 1px solid black;
   border-left: none;
   cursor: default;

@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .StaticCell {
+  background-color: white;
   border: 1px solid black;
   position: relative;
   margin-top: -1px;
