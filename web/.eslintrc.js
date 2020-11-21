@@ -22,9 +22,8 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': ['error', 'never'],
     'no-unused-vars': ['warn'],
-    'quotes': ['error', 'single', {
-      'allowTemplateLiterals': true
-    }],
+    'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
+    'vue/no-use-v-if-with-v-for': 'warn',
   },
   overrides: [
     {

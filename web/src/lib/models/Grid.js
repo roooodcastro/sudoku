@@ -3,7 +3,8 @@ import SolutionValidator from '@/lib/SolutionValidator.js';
 
 export default class Grid {
   constructor(gridSize, cells) {
-    this.gridSize = gridSize;
+    this.gridSize = gridSize || 1;
+    this.subGridSize = Math.sqrt(this.gridSize);
     this.cells = cells;
   }
 
