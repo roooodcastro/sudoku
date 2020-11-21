@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+import About from '../views/About.vue';
+import View from '../views/View.vue';
 
 const routes = [
   {
@@ -13,7 +15,7 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: About,
     meta: {
       title: 'About - Rubydoku',
     },
@@ -24,6 +26,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "play" */ '../views/Play.vue'),
     meta: {
       title: 'Play - Rubydoku',
+    },
+  },
+  {
+    path: '/view/:puzzleId',
+    name: 'View',
+    component: View,
+    meta: {
+      title: 'View Sudoku - Rubydoku',
     },
   },
 ];
