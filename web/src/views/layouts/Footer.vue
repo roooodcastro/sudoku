@@ -10,7 +10,7 @@
   .Footer {
     bottom: 0;
     height: 4rem;
-    position: absolute;
+    position: relative;
     width: 100%;
   }
 </style>

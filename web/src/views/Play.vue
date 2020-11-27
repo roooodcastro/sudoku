@@ -1,10 +1,12 @@
 <template>
-  <div class="play">
+  <div class="Play">
     <h1>Play a Sudoku game</h1>
 
-    <Grid />
+    <div class="row h-100">
+      <div class="col-12 col-md-8 h-100 d-flex align-items-center justify-content-center">
+        <Grid class="Play__grid" />
+      </div>
 
-    <div class="row">
       <div class="col">
         <button
           class="btn btn-secondary"
@@ -54,3 +56,21 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+
+.App__container {
+  height: 100%;
+}
+
+.Play {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.Play__grid {
+  width: Min(60vh, 80vw) !important;
+}
+</style>

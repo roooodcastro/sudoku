@@ -24,10 +24,10 @@ export default {
       return state.grid.cellAt(state.focusedCellIndex);
     },
     getFocusedCellRow: (state) => {
-      return Math.floor(state.focusedCellIndex / 9);
+      return Math.floor(state.focusedCellIndex / state.grid.gridSize);
     },
     getFocusedCellCol: (state) => {
-      return Math.floor(state.focusedCellIndex % 9);
+      return Math.floor(state.focusedCellIndex % state.grid.gridSize);
     },
     getCells: (state) => {
       return state.grid.cells;
@@ -46,7 +46,9 @@ export default {
       state.author = puzzle.author;
     },
     [SET_VALUE](state, { value }) {
-      state.grid.cellAt(state.focusedCellIndex).value = parseInt(value);
+      if (parseInt(value) <= state.grid.gridSize) {
+        state.grid.cellAt(state.focusedCellIndex).value = parseInt(value);
+      }
     },
     [CLEAR_VALUE](state) {
       state.grid.cellAt(state.focusedCellIndex).clearCell();
@@ -64,23 +66,24 @@ export default {
     },
 
     moveFocus({ commit, getters }, direction) {
+      const gridSize = getters.getGrid.gridSize;
       let newRow = getters.getFocusedCellRow;
       let newCol = getters.getFocusedCellCol;
       switch (direction) {
         case 'left':
-          newCol = (newCol + 8) % 9;
+          newCol = (newCol + (gridSize - 1)) % gridSize;
           break;
         case 'right':
-          newCol = (newCol + 1) % 9;
+          newCol = (newCol + 1) % gridSize;
           break;
         case 'up':
-          newRow = (newRow + 8) % 9;
+          newRow = (newRow + (gridSize - 1)) % gridSize;
           break;
         case 'down':
-          newRow = (newRow + 1) % 9;
+          newRow = (newRow + 1) % gridSize;
       }
 
-      const cellIndex = (newRow * 9) + newCol;
+      const cellIndex = (newRow * gridSize) + newCol;
 
       commit({
         type: SET_FOCUS,

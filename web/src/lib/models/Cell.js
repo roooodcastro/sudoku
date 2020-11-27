@@ -15,10 +15,6 @@ export default class Cell {
     return Math.floor(this.index % this.gridSize);
   }
 
-  get orderedPencilMarks() {
-    return Array.from(this.pencilMarks).sort();
-  }
-
   clearCell() {
     if (this.value > 0) {
       this.value = 0;
@@ -28,7 +24,7 @@ export default class Cell {
   }
 
   togglePencilMark(value) {
-    if (!this.locked) {
+    if (!this.locked && value <= this.gridSize) {
       if (this.pencilMarks.has(value)) {
         this.pencilMarks.delete(value);
       } else {

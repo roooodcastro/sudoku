@@ -11,23 +11,30 @@
     @keydown.exact="setCellValue"
     @keyup.shift="togglePencilMark"
   >
-    <div
-      v-if="cell.value"
-      class="Cell__value"
+    <svg
+      viewBox="0 0 100 100"
     >
-      {{ cell.value }}
-    </div>
-    <div
-      v-else
-      class="Cell__pencil-marks"
-    >
-      <span
-        v-for="pencilMark in cell.orderedPencilMarks"
+      <text
+        v-if="cell.value"
+        x="50%"
+        y="50%"
+        class="Cell__svg-text-value"
+      >
+        {{ cell.value }}
+      </text>
+
+      <text
+        v-else
+        v-for="pencilMark in cell.pencilMarks"
         :key="pencilMark"
+        class="Cell__svg-text-pencil-mark"
+        :class="pencilMarksCssClass"
+        :x="pencilMarkPosX(pencilMark)"
+        :y="pencilMarkPosY(pencilMark)"
       >
         {{ pencilMark }}
-      </span>
-    </div>
+      </text>
+    </svg>
   </div>
 </template>
 
@@ -44,6 +51,10 @@ export default {
       type: Object,
       required: true,
     },
+    gridSize: {
+      type: Number,
+      required: true,
+    },
   },
 
   computed: {
@@ -56,8 +67,13 @@ export default {
     cssClasses() {
       return {
         'Cell--focused': this.isFocused,
-        'font-weight-light': !this.cell.locked,
-        'text-primary': !this.cell.locked,
+        'Cell--editable': !this.cell.locked,
+      };
+    },
+    pencilMarksCssClass() {
+      return {
+        'Cell__pencil-marks--two-by-two': this.gridSize === 4,
+        'Cell__pencil-marks--three-by-three': this.gridSize === 9,
       };
     },
   },
@@ -75,78 +91,72 @@ export default {
       'setCellValue',
       'togglePencilMark',
     ]),
+
+    pencilMarkPosX(pencilMark) {
+      const pencilMarkIndex = pencilMark - 1;
+      const subGridSize = Math.sqrt(this.gridSize);
+      const usableArea = 60;
+      const startPadding = (100 - usableArea) / 2;
+      const posValue = startPadding + (pencilMarkIndex % subGridSize) * (usableArea / (subGridSize - 1));
+      return `${posValue}%`;
+    },
+
+    pencilMarkPosY(pencilMark) {
+      const pencilMarkIndex = pencilMark - 1;
+      const subGridSize = Math.sqrt(this.gridSize);
+      const usableArea = 60;
+      const startPadding = (100 - usableArea) / 2;
+      const posValue = startPadding + Math.floor(pencilMarkIndex / subGridSize) * (usableArea / (subGridSize - 1));
+      return `${posValue}%`;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/bootstrap_variables';
+
 .Cell {
   background-color: white;
   border: 1px solid black;
-  border-left: none;
-  cursor: default;
-  height: 7.5vmin;
-  width: 7.5vmin;
+  position: relative;
+  margin-top: -1px;
+  margin-left: -1px;
   user-select: none;
+  cursor: default;
+
+  svg {
+    dominant-baseline: central;
+    text-anchor: middle;
+    width: 100%;
+  }
 
   &:focus {
     background-color: Gold;
     outline: none;
   }
-
-  &:nth-child(9n - 8) {
-    border-left: 1px solid black;
-  }
-
-  &:nth-child(n + 10) {
-    border-top: none;
-  }
-
-  &:nth-child(3n - 2) {
-    border-left: 3px solid black;
-  }
-
-  &:nth-child(9n) {
-    border-right: 3px solid black;
-  }
-
-  &:nth-child(n):nth-child(-n+9) {
-    border-top: 3px solid black;
-  }
-
-  &:nth-child(n+19):nth-child(-n+27) {
-    border-bottom: 3px solid black;
-  }
-
-  &:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 3px solid black;
-  }
-
-  &:nth-child(n+73):nth-child(-n+81) {
-    border-bottom: 3px solid black;
-  }
 }
 
-.Cell__value {
-  font-size: 5vmin;
-  line-height: 7.5vmin;
-  text-align: center;
+.Cell__svg-text-value {
+  font: 75px sans-serif;
 }
 
-.Cell__pencil-marks {
-  align-items: stretch;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-items: stretch;
-  line-height: 7.5vmin;
-  margin-left: 1px;
-  margin-top: 1px;
-  text-align: center;
+.Cell__svg-text-pencil-mark {
+  fill: $gray-600;
+  font: 25px sans-serif;
+  font-weight: lighter;
+}
 
-  span {
-    display: block;
-    font-size: 2vmin;
-    line-height: 2.5vmin;
-  }
+.Cell.Cell--editable .Cell__svg-text-value {
+  fill: theme-color('primary');
+  font-weight: lighter;
+}
+
+.Cell__pencil-marks--two-by-two {
+  grid-template-columns: repeat(2, auto);
+}
+
+.Cell__pencil-marks--three-by-three {
+  grid-template-columns: repeat(3, auto);
 }
 </style>
