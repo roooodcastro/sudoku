@@ -40,7 +40,7 @@ export default {
     width: 100%;
 
     text {
-      font: 80px sans-serif;
+      font: 75px sans-serif;
     }
   }
 }
