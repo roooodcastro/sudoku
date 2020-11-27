@@ -30,7 +30,7 @@ class PuzzlesController < ApplicationController
   private
 
   def set_puzzle
-    @puzzle = Puzzle.find(params[:id])
+    @puzzle = Puzzle.friendly.find(params[:id])
   end
 
   def puzzle_params

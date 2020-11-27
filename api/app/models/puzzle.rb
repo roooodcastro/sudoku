@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class Puzzle < ApplicationRecord
+  extend FriendlyId
+
   self.implicit_order_column = :created_at
+
+  before_validation :ensure_random_name
+  friendly_id :name, use: :slugged
 
   validates :name, presence: true, uniqueness: true
 
   validate :validate_grid
-
-  before_validation :ensure_random_name
 
   def sudoku_grid
     @sudoku_grid ||= Sudoku::Grid.new(definition)

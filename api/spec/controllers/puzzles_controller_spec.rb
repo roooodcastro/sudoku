@@ -17,14 +17,27 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
 
   describe 'GET show' do
     before do
-      get :show, params: { id: puzzle.id }, format: :json
+      get :show, params: { id: puzzle_id }, format: :json
     end
 
     let(:puzzle) { create :puzzle }
 
-    it 'returns the puzzle in JSON format' do
-      expect(response).to have_http_status(:success)
-      expect(json_response['puzzle']).to eq puzzle.as_json
+    context 'when the UUID is passed as parameter' do
+      let(:puzzle_id) { puzzle.id }
+
+      it 'returns the puzzle in JSON format' do
+        expect(response).to have_http_status(:success)
+        expect(json_response['puzzle']).to eq puzzle.as_json
+      end
+    end
+
+    context 'when the slug is passed as parameter' do
+      let(:puzzle_id) { puzzle.slug }
+
+      it 'returns the puzzle in JSON format' do
+        expect(response).to have_http_status(:success)
+        expect(json_response['puzzle']).to eq puzzle.as_json
+      end
     end
   end
 
