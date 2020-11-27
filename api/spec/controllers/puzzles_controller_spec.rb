@@ -82,7 +82,7 @@ RSpec.describe PuzzlesController, type: :controller, aggregate_failures: true do
       end
 
       it 'updates the puzzle and returns it in JSON format' do
-        expect { patch_request }.to change { puzzle.reload.name }.from(nil).to('MyPuzzle')
+        expect { patch_request }.to change { puzzle.reload.name }.to('MyPuzzle')
 
         expect(response).to have_http_status(:success)
         expect(json_response['puzzle']).to eq puzzle.reload.as_json
